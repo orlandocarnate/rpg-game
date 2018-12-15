@@ -1,4 +1,4 @@
-### Option Two: Star Wars RPG Game (Challenge)
+### Option Two: Harry Potter RPG Game (Challenge)
 
 ![Star Wars](Images/2-StarWars.jpg)
 
