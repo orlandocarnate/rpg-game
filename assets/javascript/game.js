@@ -15,3 +15,10 @@
     // Counter Attack Power Property?
 
 // Display Character Cards
+    // render cards with style tags using jQuery
+
+// Game Interaction Functions
+
+// ATTACK button
+
+
