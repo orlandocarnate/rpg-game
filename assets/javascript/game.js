@@ -34,15 +34,32 @@ $(document).ready(function() {
     // use $.each() for loops.
     // Outer key, value pairs
     $.each(characters, function(i, currentChar) {
+        
+        // create jQuery variable
+        var charCard = $("<div class='card'>");
+        
+        // add div class card-body
+        $(".card").append("<div class=card-body>")
+        
+
+        /*
         // Inner Key, Value pairs
         $.each(currentChar, function (key, val){
 
             console.log("" + key + ": " + val);
 
             // create Cards for each character
-            var charCard = $("<div>");
             
+            charCard.text(val)
+            
+
         });
+        */
+
+        // Process the currentChar object
+        
+        // Add buttons inside chooseChar div
+        $("#chooseChar").append(charCard);
 
     });
     // };
