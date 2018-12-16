@@ -63,3 +63,17 @@ Add a `README.md` to your repository describing the project. Here are some resou
 
 After completing the homework please add the piece to your portfolio. Make sure to add a link to your updated portfolio in the comments section of your homework so the TAs can easily ensure you completed this step when they are grading the assignment. To receive an 'A' on any assignment, you must link to it from your portfolio.
 
+
+## NOTES
+Found how to loop inside an object with object values at [Treeshouse.com](https://teamtreehouse.com/community/looping-through-objects-in-javascript)
+
+ex: 
+```
+for(var character in characters) {
+  if (characters.hasOwnProperty(mem)) {
+    var charVal = family[mem];
+    console.log(charVal.name);
+    console.log(charVal.age);
+  }
+}
+```

@@ -3,42 +3,46 @@
 // Global Variables
 
 // character objects
-var harry = {
-    name: "Harry Potter",
-    healthPoints: 5,
-    attackPower: 5,
-    counterAttackPower: 5
+var characters = {
+    harry: {
+        name: "Harry Potter",
+        healthPoints: 15,
+        attackPower: 5,
+        counterAttackPower: 5
+    },
+
+    hermione: {
+        name: "Hermione Granger",
+        healthPoints: 16,
+        attackPower: 5,
+        counterAttackPower: 5
+    },
+
+    ron: {
+        name: "Ron Weasley",
+        healthPoints: 13,
+        attackPower: 5,
+        counterAttackPower: 5
+    },
 }
-
-var hermione = {
-    name: "Hermione Granger",
-    healthPoints: 5,
-    attackPower: 5,
-    counterAttackPower: 5
-}
-
-var ron = {
-    name: "Ron Weasley",
-    healthPoints: 5,
-    attackPower: 5,
-    counterAttackPower: 5
-}
-
-
-// Player Object
-
-    // Health Points Property
-
-    // Attack Power Property
-
-    // Counter Attack Method
-
-// Enemy Object
-
-    // Counter Attack Power Property?
 
 // Display Character Cards
     // render cards with style tags using jQuery
+function displayCards() {
+
+    //For loop looks through each key and sub keys and gets the values
+    for(var character in characters) {
+        if (characters.hasOwnProperty(character)) {
+            var charVal = characters[character];
+            console.log(charVal.name);
+            console.log(charVal.healthPoints);
+            console.log(charVal.attackPower);
+            console.log(charVal.counterAttackPower);
+        }
+    }
+}
+displayCards();
+
 
 // Game Interaction Functions
 
