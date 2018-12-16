@@ -4,14 +4,13 @@ My son loves the world of Harry Potter so I decided to do a game based on that i
 
 Here's how the JavaScript application works:
 
-   * When the game starts, the player will choose a character by clicking on the character's picture, which will be used for the rest of the game.
+   * When the game starts, the player will choose a character by clicking on the character's **card**, which will be used for the rest of the game.
    * The player must then defeat all of the remaining characters.
-   * The player chooses the first opponent by clicking on an enemy's picture.
+   * The player chooses the first opponent by clicking on an enemy's card.
    * The selected opponent will be moved to the fighting 'arena'.
-   * The attach button will become active.
-   * When the player clicks *attack*, their 
-     * Whenever the player clicks `attack`, their character damages the defender. The opponent will lose `HP` (health points). These points are displayed at the bottom of the defender's picture. 
-     * The opponent character will instantly counter the attack. When that happens, the player's character will lose some of their `HP`. These points are shown at the bottom of the player character's picture.
+   * The **attack button** will become active.
+   * When the player clicks **attack**, their character will damage the opponent and they will lose **HP**, shown at the bottom of the opponent card.
+     * The opponent will counter the attack. When that happens, the player's character will lose some of their **HP**,shown at the bottom of the player character's card.
 
 3. The player will keep hitting the attack button in an effort to defeat their opponent.
 
