@@ -92,3 +92,14 @@ $.each(characters, function(i, currentChar) {
 ```
 
 Movie sound clips from http://www.moviesoundclips.net
+
+To move an element try 
+`jQuery("#NodesToMove").detach().appendTo('#DestinationContainerNode')`
+
+to get index of an element within another element try:
+https://learn.jquery.com/using-jquery-core/understanding-index/
+
+
+Pseudocode for moving cards to opponent section:
+If card was selected, move it to the Player section
+otherwise move it to the opponent section.
