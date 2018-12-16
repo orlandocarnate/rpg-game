@@ -65,15 +65,30 @@ After completing the homework please add the piece to your portfolio. Make sure 
 
 
 ## NOTES
-Found how to loop inside an object with object values at [Treeshouse.com](https://teamtreehouse.com/community/looping-through-objects-in-javascript)
+For loop works with objects in an array **DO NOT WORK IN jQUERY** 
 
-ex: 
+This doesn't work:
 ```
-for(var character in characters) {
-  if (characters.hasOwnProperty(mem)) {
-    var charVal = family[mem];
-    console.log(charVal.name);
-    console.log(charVal.age);
-  }
-}
+//For loop looks through each object and displays the values
+    for(var i = 0; i < characters; i++) {
+            console.log(characters[i].name);
+            console.log(characters[i].healthPoints);
+            console.log(characters[i].attackPower);
+            console.log(characters[i].counterAttackPower);
+    }
 ```
+
+Use the `.each()`
+```
+// Outer key, value pairs
+$.each(characters, function(i, currentChar) {
+  // Inner Key, Value pairs
+        $.each(currentChar, function (key, val){
+
+            console.log(key, val)
+        });
+
+});
+```
+
+Movie sound clips from http://www.moviesoundclips.net
