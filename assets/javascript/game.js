@@ -63,23 +63,37 @@ $(document).ready(function() {
             console.log(value.health);
             console.log(value.attack);
             console.log(value.counter);
-    
+            
+            var cardID = "card"+ key;
                 
-            $("#chooseChar").append("<div class='card' id='card" + key + "' style='width:200px'>");
-            $("#card"+key).attr("name", value.name);
-            $("#card"+key).attr("healthpoints", value.health);
-            $("#card"+key).attr("attackpower", value.attack);
-            $("#card"+key).attr("counterattackpower", value.counter);
+            $("#chooseChar").append("<div/>", 
+                {
+                    "class": "card", 
+                    "id": cardID, 
+                    "style": "width:200px",
+                    "name": value.name,
+                    "healthpoints": value.health,
+                    "attackpower": value.attack,
+                    "counterattackpower": value.counter
+                }
+            ).append("<div class='card-body card" + key + "'>");
+
+            
+            // $("#chooseChar").append("<div class='card' id='card" + key + "' style='width:200px'>");
+            // $("#"+cardID).attr("name", value.name);
+            // $("#"+cardID).attr("healthpoints", value.health);
+            // $("#"+cardID).attr("attackpower", value.attack);
+            // $("#"+cardID).attr("counterattackpower", value.counter);
     
-            $("#card"+key).append("<div class='card-body card" + key + "'>");
+            // $("#"+cardID).append("<div class='card-body card" + key + "'>");
     
-            $(".card-body.card"+key).append("<img class='card-img-top' src='assets/images/"+value.image+"'>");
-            $(".card-body.card"+key).append("<div class='card-title card"+key+"'>");
-            $(".card-body.card"+key).append("<div class='card-text card"+key+"'>");
+            // $(".card-body."+"#"+cardID).append("<img class='card-img-top' src='assets/images/"+value.image+"'>");
+            // $(".card-body."+"#"+cardID).append("<div class='card-title card"+key+"'>");
+            // $(".card-body."+"#"+cardID).append("<div class='card-text card"+key+"'>");
     
-            $(".card-title.card"+key).text(value.name);
+            // $(".card-title."+cardID).text(value.name);
     
-            $(".card-text.card"+key).text(value.health);            
+            // $(".card-text."+cardID).text(value.health);            
     
         });
     };
@@ -174,24 +188,25 @@ $(document).ready(function() {
     // ATTACK button
     function attackButton() {
             // audioElement.play();
-            alert("ATTACK");
-            alert("Enemy Current HP: " + enemyHP);
+            console.log("ATTACK");
+            console.log("Enemy Current HP: " + enemyHP);
             // First Player attacks
             enemyHP -= playerAttack;
-            alert("Enemy New HP: " + enemyHP);
-            $(".card-text."+defenderID).text(String(enemyHP));
+            console.log("Enemy New HP: " + enemyHP);
+            $(".card-text."+defenderID).text(enemyHP);
             if (enemyHP <= 0) {
                 // Change Attack key to You Win
                 alert("You Win");
                 // Show Pick a new opponent or restart if done
             }
 
-            // increate playerAttack by base number
+            // increase playerAttack by base number
             playerAttack += baseAttackPower;
-            alert("New Attack Points: " + playerAttack);
+            console.log("New Attack Points: " + playerAttack);
 
             playerHP -= enemyCounter;
-            alert("player HP: " + playerHP);
+            console.log("player HP: " + playerHP);
+            $(".card-text."+playerID).text(playerHP);
 
             if (playerHP <= 0) {
                 // Change Attack key to You Lose
