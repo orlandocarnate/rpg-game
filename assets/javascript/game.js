@@ -22,6 +22,10 @@ $(document).ready(function() {
 
     var attackBtnActive = false;
 
+    // hide the attack & reset buttons
+    $("#attack, #restart").hide();
+
+
     // Gets Link for Theme Song
     var audioElement = document.createElement("audio");
     audioElement.setAttribute("src", "assets/sounds/theme.mp3");
@@ -48,7 +52,29 @@ $(document).ready(function() {
             attack: 20,
             counter: 25,
             image: "Ron_Weasley.jpg"
+        },
+        {
+            name: "Draco Malfoy",
+            health: 75,
+            attack: 20,
+            counter: 25,
+            image: "Draco-Malfoy-375-500.jpg"
+        },
+        {
+            name: "Severus Snape",
+            health: 75,
+            attack: 20,
+            counter: 25,
+            image: "Severus_Snape.jpg"
+        },
+        {
+            name: "Voldemort",
+            health: 75,
+            attack: 20,
+            counter: 25,
+            image: "voldemort.jpg"
         }
+        
     ];
 
     // Display Character Cards
@@ -169,6 +195,7 @@ $(document).ready(function() {
             playerAttack = parseInt($("#"+playerID).attr("attackpower"));
             playerCounter = parseInt($("#"+playerID).attr("counterattackpower"));
 
+            // Fade out then move to new location then fade in
             // Move card to Your Character Section
             $("#"+playerID).appendTo("#yourCharacter");
 
@@ -210,6 +237,12 @@ $(document).ready(function() {
         // Move card to Defender Section
         $("#"+defenderID).appendTo("#defender");
         
+        // Change main prompt
+        $(".main-prompt").text("BATTLE!");
+
+        // fade IN the attack button
+        $("#attack").fadeIn();
+
         // turn on attack button
         attackBtnActive = true;
 
@@ -222,13 +255,43 @@ $(document).ready(function() {
         // var modalText = ' health: '+ cardHP + ', attack: ' + cardAttack + ', counter: ' + cardCounter;
         // $(".modal-title").text(cardName);
         // $(".modal-body").text(modalText);
-
-
-
-        
-
-
 };
+
+    // RESTART button
+    function restartButton() {
+
+        // reset variables
+        canPickCard = true;
+        isFirstCard = true;
+    
+        baseAttackPower = 6;
+    
+        playerName;
+        playerHP = 0;
+        playerAttack = 0;
+        playerCounter = 0;
+    
+        playerID;
+        defenderID;
+    
+        enemyName = 0;
+        enemyHP = 0;
+        enemyAttack = 0;
+        enemyCounter = 0;
+    
+        attackBtnActive = false;
+
+        // CLEAR all children elements from player, opponent, and chars left elements
+
+        $("#yourCharacter, #defender, #charactersLeft").remove();
+    
+        // hide the attack & reset buttons
+        $("#restart").fadeOut();
+
+        // Reload the cards
+        displayCards();
+        alert(canPickCard);
+    };
 
     // ATTACK button
     function attackButton() {
@@ -237,6 +300,7 @@ $(document).ready(function() {
             // audioElement.play();
             console.log("ATTACK");
             console.log("Enemy Current HP: " + enemyHP);
+
             // First Player attacks
             enemyHP -= playerAttack;
             console.log("Enemy New HP: " + enemyHP);
@@ -244,8 +308,10 @@ $(document).ready(function() {
 
             if (enemyHP <= 0) {
                 // Change Attack key to You Win
-                alert("You Win");
+                $(".main-prompt").text("YOU WIN!");
 
+                // hide the attack button
+                $("#attack").fadeOut(1000);
                 // check if there are any card elements
                 alert("Cards Left: " + $("#charactersLeft").children('.card').length);
                 // remove current opponent
@@ -264,7 +330,11 @@ $(document).ready(function() {
 
             if (playerHP <= 0) {
                 // Change Attack key to You Lose
-                alert("You Lose");
+                $(".main-prompt").text("YOU LOST!");
+
+                // hide the attack button
+                $("#attack").fadeOut(1000);
+                $("#restart").fadeIn();
 
                 // turn off attack button
                 attackBtnActive = false;
@@ -278,14 +348,17 @@ $(document).ready(function() {
 
     // jQuery Event Listeners
 
-    $(".attack-button").on("click", function() {
+    $("#attack").on("click", function() {
         attackButton();
     });
 
+    $("#restart").on("click", function() {
+        restartButton();
+    });
 
     // Click Card event
     $(".card").on("click", function () {
-
+        alert("Clicked on card");
         // Can the player pick a card?
         if (canPickCard) {
             // Is the player selecting the first card?
