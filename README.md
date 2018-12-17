@@ -103,3 +103,21 @@ https://learn.jquery.com/using-jquery-core/understanding-index/
 Pseudocode for moving cards to opponent section:
 If card was selected, move it to the Player section
 otherwise move it to the opponent section.
+
+* Removing and Re-Adding elements will mess up `.on()` events because `.on()` works only on current elements. Needs to be reset somehow.
+From the jQuery docs: 
+**Event handlers are bound only to the currently selected elements; they must exist at the time your code makes the call to `.on()`.**
+* I will need to use **Delegated event handlers** for it to work.
+Ex:
+    ```
+    $( "#dataTable tbody tr" ).on( "click", function() {
+        console.log( $( this ).text() );
+    });
+    ```
+
+Event Delegation:
+    ```
+    $( "#dataTable tbody" ).on( "click", "tr", function() {
+        console.log( $( this ).text() );
+    });
+    ```

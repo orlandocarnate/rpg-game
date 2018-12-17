@@ -125,7 +125,7 @@ $(document).ready(function() {
                     ))
                     .append($("<div/>",
                     {
-                        "class": "card-text text-center " + cardID,
+                        "class": "card-text text-center text-success " + cardID,
                         text: value.health
                     }
                     ))
@@ -260,26 +260,7 @@ $(document).ready(function() {
     // RESTART button
     function restartButton() {
 
-        // reset variables
-        canPickCard = true;
-        isFirstCard = true;
-    
-        baseAttackPower = 6;
-    
-        playerName;
-        playerHP = 0;
-        playerAttack = 0;
-        playerCounter = 0;
-    
-        playerID;
-        defenderID;
-    
-        enemyName = 0;
-        enemyHP = 0;
-        enemyAttack = 0;
-        enemyCounter = 0;
-    
-        attackBtnActive = false;
+
 
         // CLEAR all children elements from player, opponent, and chars left elements
 
@@ -290,7 +271,7 @@ $(document).ready(function() {
 
         // Reload the cards
         displayCards();
-        alert(canPickCard);
+
     };
 
     // ATTACK button
@@ -353,21 +334,30 @@ $(document).ready(function() {
     });
 
     $("#restart").on("click", function() {
+        location.reload();
+        /*
         restartButton();
+        // reset variables and booleans
+        canPickCard = true;
+        isFirstCard = true;
+        baseAttackPower = 6;
+        attackBtnActive = false;
+        alert("Pick Card: " + canPickCard + ", First Card: " + isFirstCard);
+        */
     });
 
     // Click Card event
-    $(".card").on("click", function () {
-        alert("Clicked on card");
+    $( ".card").on("click", function () {
+
         // Can the player pick a card?
         if (canPickCard) {
+            alert($(this).attr("id") + " First Card? "+isFirstCard);
             // Is the player selecting the first card?
             if (isFirstCard) {
                 playerID = $(this).attr("id");
                 isFirstCard = false;
                 selectPlayer();
             }
-
             // Otherwise select the second card
             else {
                 defenderID = $(this).attr("id");
