@@ -34,44 +34,44 @@ $(document).ready(function() {
     var characters = [
         {
             name: "Harry Potter",
-            health: 75,
-            attack: 25,
-            counter: 25,
+            health: 100,
+            attack: 8,
+            counter: 7,
             image: "harry2.jpg"
         },
         {
             name: "Hermione Granger",
-            health: 75,
-            attack: 25,
-            counter: 25,
+            health: 100,
+            attack: 7,
+            counter: 6,
             image: "Hermione2.jpg"
         },
         {
             name: "Ron Weasley",
-            health: 75,
-            attack: 20,
-            counter: 25,
+            health: 95,
+            attack: 6,
+            counter: 5,
             image: "Ron_Weasley.jpg"
         },
         {
             name: "Draco Malfoy",
-            health: 75,
-            attack: 20,
-            counter: 25,
+            health: 80,
+            attack: 5,
+            counter: 4,
             image: "Draco-Malfoy-375-500.jpg"
         },
         {
             name: "Severus Snape",
-            health: 75,
-            attack: 20,
-            counter: 25,
+            health: 150,
+            attack: 9,
+            counter: 8,
             image: "Severus_Snape.jpg"
         },
         {
             name: "Voldemort",
-            health: 75,
-            attack: 20,
-            counter: 25,
+            health: 200,
+            attack: 10,
+            counter: 9,
             image: "voldemort.jpg"
         }
         
@@ -351,7 +351,7 @@ $(document).ready(function() {
 
         // Can the player pick a card?
         if (canPickCard) {
-            alert($(this).attr("id") + " First Card? "+isFirstCard);
+            // alert($(this).attr("id") + " First Card? "+isFirstCard);
             // Is the player selecting the first card?
             if (isFirstCard) {
                 playerID = $(this).attr("id");

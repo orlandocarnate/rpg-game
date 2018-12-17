@@ -121,3 +121,5 @@ Event Delegation:
         console.log( $( this ).text() );
     });
     ```
+
+* **FINAL NOTE ON RESTART BUTTON** There were event delegation problems that was taking too long to fix so I did a simple reloading of the page instead.
