@@ -3,12 +3,15 @@ $(document).ready(function() {
 
     // Global Variables
     var canPickCard = true;
-    var isFirstCharacter = true;
+    var isFirstCard = true;
 
     var playerName;
     var playerHP;
     var playerAttack;
     var playerCounter;
+
+    var cardID;
+    var defenderID;
 
     var enemyName;
     var enemyHP;
@@ -107,43 +110,31 @@ $(document).ready(function() {
     
 
     // Select Character
-    function selectCharacter () {
+    function selectPlayer () {
 
             // alert("Card Clicked");
     
             // Get ID
-            cardID = "#"+$(this).attr("id");
-            // alert(cardID);
+            // var cardID = "#"+$(this).attr("id");
+            alert(cardID);
     
             // Get health, attack, and counter values
-            if (isFirstCharacter) {
-                // alert("First Pick");
-                playerName = $(this).attr("name");
-                playerHP = $(this).attr("healthPoints");
-                playerAttack = $(this).attr("attackPower");
-                playerCounter = $(this).attr("counterAttackPower");
+            playerName = $(this).attr("name");
+            playerHP = $(this).attr("healthPoints");
+            playerAttack = $(this).attr("attackPower");
+            playerCounter = $(this).attr("counterAttackPower");
 
-                // Move card to Your Character Section
-                $(cardID).appendTo("#yourCharacter");
+            // Move card to Your Character Section
+            $(cardID).appendTo("#yourCharacter");
 
-                // move remaining cards to Characters Left section
-                $(".card").not(cardID).each(function (index) {
-                    $(this).appendTo("#charactersLeft");
-                });
+            // move remaining cards to Characters Left section
+            $(".card").not(cardID).each(function (index) {
+                $(this).appendTo("#charactersLeft");
+            });
 
-                isFirstCharacter = false;
+            isFirstCard = false;
 
-            } else {
-                enemyName = $(this).attr("name");
-                enemyHP = $(this).attr("healthPoints");
-                enemyAttack = $(this).attr("attackPower");
-                enemyCounter = $(this).attr("counterAttackPower");
-                canPickCard = false;
 
-                // Move card to Defender Section
-                $(cardID).appendTo("#defender");
-            
-            }
             
     
             // create text for Modal pop
@@ -158,32 +149,71 @@ $(document).ready(function() {
 
     };
 
+    function selectDefender () {
+
+        // alert("Card Clicked");
+
+        // Get ID
+
+        alert(defenderID);
+
+        // Get health, attack, and counter values
+        enemyName = $(this).attr("name");
+        enemyHP = $(this).attr("healthPoints");
+        enemyAttack = $(this).attr("attackPower");
+        enemyCounter = $(this).attr("counterAttackPower");
+        canPickCard = false;
+
+        // Move card to Defender Section
+        $(defenderID).appendTo("#defender");
+        
+
+        
+
+        // create text for Modal pop
+        // var modalText = ' health: '+ cardHP + ', attack: ' + cardAttack + ', counter: ' + cardCounter;
+        // $(".modal-title").text(cardName);
+        // $(".modal-body").text(modalText);
+
+
+
+        
+
+
+};
+
     // ATTACK button
     function attackButton() {
-        $(".attack-button").on("click", function() {
             audioElement.play();
-        });
-
     };
 
 
     // jQuery Event Listeners
 
+    $(".attack-button").on("click", function() {
+        attackButton();
+    });
+
+
     // Click Card event
     $(".card").on("click", function () {
-        // You can only select card if first or second is not selected
+
+        // Can the player pick a card?
         if (canPickCard) {
-            selectCharacter();
-            // If this is the first card then select first
-            // if (isFirstCharacter) {
-            //     isFirstCharacter = false;
-            //     selectCharacter();
-            // } else {
-            //     selectCharacter();
-            // }
+            // Is the player selecting the first card?
+            if (isFirstCard) {
+                cardID = "#"+$(this).attr("id");
+                isFirstCard = false;
+                selectPlayer();
+            }
 
-
+            // Otherwise select the second card
+            else {
+                defenderID = "#"+$(this).attr("id");
+                selectDefender();
+            }
         }
+        
     });
 
     
