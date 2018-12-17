@@ -210,7 +210,10 @@ $(document).ready(function() {
             // Otherwise select the second card
             else {
                 defenderID = "#"+$(this).attr("id");
-                selectDefender();
+                // make sure first card can not be picked again this round
+                if (defenderID !== cardID) {
+                    selectDefender();
+                }
             }
         }
         
