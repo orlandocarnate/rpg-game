@@ -2,6 +2,7 @@
 $(document).ready(function() {
 
     // Global Variables
+    var status = "";
     var canPickCard = true;
     var isFirstCard = true;
 
@@ -202,18 +203,6 @@ $(document).ready(function() {
             isFirstCard = false;
             $(".main-prompt").text("Choose your opponent");
 
-            
-    
-            // create text for Modal pop
-            // var modalText = ' health: '+ cardHP + ', attack: ' + cardAttack + ', counter: ' + cardCounter;
-            // $(".modal-title").text(cardName);
-            // $(".modal-body").text(modalText);
-    
-
-    
-            
-
-
     };
 
     function selectDefender () {
@@ -287,19 +276,34 @@ $(document).ready(function() {
             console.log("Enemy New HP: " + enemyHP);
             $(".card-text."+defenderID).text(enemyHP);
 
+            // Check if opponent loses and if there are any cards left
             if (enemyHP <= 0) {
                 // Change Attack key to You Win
                 $(".main-prompt").text("YOU WIN!");
 
                 // hide the attack button
                 $("#attack").fadeOut(1000);
-                // check if there are any card elements
-                alert("Cards Left: " + $("#charactersLeft").children('.card').length);
-                // remove current opponent
-                $("#"+defenderID).remove();
-                // set isFirstCard to false and canPickCard to true to pick a new opponent or restart if done
-                isFirstCard = false;
-                canPickCard = true;
+
+                // if there are any card elements left remove current opponent, otherwise Player Wins the Game
+                // alert("Cards Left: " + $("#charactersLeft").children('.card').length);
+                if ($("#charactersLeft").children('.card').length > 0) {
+                    // remove current opponent
+                    $("#"+defenderID).remove();
+                    // set isFirstCard to false and canPickCard to true to pick a new opponent or restart if done
+                    isFirstCard = false;
+                    canPickCard = true;
+                    
+                } else {
+                    status = 'YOU WON THE GAME!';
+                    // PLAYER WINS GAME! DISPLAY MODAL
+                    // var modalText = ' health: '+ cardHP + ', attack: ' + cardAttack + ', counter: ' + cardCounter;
+                    $(".modal-title").text(status);
+                    // $(".modal-body").text(modalText);
+                    $("#endgameModal").modal('show');
+
+                }
+
+                
             }
 
             // update player stats
@@ -311,7 +315,7 @@ $(document).ready(function() {
 
             if (playerHP <= 0) {
                 // Change Attack key to You Lose
-                $(".main-prompt").text("YOU LOST!");
+                // $(".main-prompt").text("YOU LOST!");
 
                 // hide the attack button
                 $("#attack").fadeOut(1000);
@@ -320,6 +324,11 @@ $(document).ready(function() {
                 // turn off attack button
                 attackBtnActive = false;
                 // Show Restart button
+
+                status = "YOU WERE DEFEATED!"
+                $(".modal-title").text(status);
+                // $(".modal-body").text(modalText);
+                $("#endgameModal").modal('show');
                 
             }
         }
