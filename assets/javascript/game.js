@@ -5,18 +5,20 @@ $(document).ready(function() {
     var canPickCard = true;
     var isFirstCard = true;
 
-    var playerName;
-    var playerHP;
-    var playerAttack;
-    var playerCounter;
+    var baseAttackPower = 6;
 
-    var cardID;
+    var playerName;
+    var playerHP = 0;
+    var playerAttack = 0;
+    var playerCounter = 0;
+
+    var playerID;
     var defenderID;
 
-    var enemyName;
-    var enemyHP;
-    var enemyAttack;
-    var enemyCounter;
+    var enemyName = 0;
+    var enemyHP = 0;
+    var enemyAttack = 0;
+    var enemyCounter = 0;
 
     // Gets Link for Theme Song
     var audioElement = document.createElement("audio");
@@ -26,23 +28,23 @@ $(document).ready(function() {
     var characters = [
         {
             name: "Harry Potter",
-            healthPoints: 75,
-            attackPower: 25,
-            counterAttackPower: 25,
+            health: 75,
+            attack: 25,
+            counter: 25,
             image: "harry2.jpg"
         },
         {
             name: "Hermione Granger",
-            healthPoints: 75,
-            attackPower: 25,
-            counterAttackPower: 25,
+            health: 75,
+            attack: 25,
+            counter: 25,
             image: "Hermione2.jpg"
         },
         {
             name: "Ron Weasley",
-            healthPoints: 75,
-            attackPower: 20,
-            counterAttackPower: 25,
+            health: 75,
+            attack: 20,
+            counter: 25,
             image: "Ron_Weasley.jpg"
         }
     ];
@@ -58,16 +60,16 @@ $(document).ready(function() {
             // var currentChar = value;
             console.log(key);
             console.log(value.name);
-            console.log(value.healthPoints);
-            console.log(value.attackPower);
-            console.log(value.counterAttackPower);
+            console.log(value.health);
+            console.log(value.attack);
+            console.log(value.counter);
     
                 
             $("#chooseChar").append("<div class='card' id='card" + key + "' style='width:200px'>");
             $("#card"+key).attr("name", value.name);
-            $("#card"+key).attr("healthpoints", value.healthPoints);
-            $("#card"+key).attr("attackpower", value.attackPower);
-            $("#card"+key).attr("counterattackpower", value.counterAttackPower);
+            $("#card"+key).attr("healthpoints", value.health);
+            $("#card"+key).attr("attackpower", value.attack);
+            $("#card"+key).attr("counterattackpower", value.counter);
     
             $("#card"+key).append("<div class='card-body card" + key + "'>");
     
@@ -77,30 +79,15 @@ $(document).ready(function() {
     
             $(".card-title.card"+key).text(value.name);
     
-            $(".card-text.card"+key).text(value.healthPoints);
-    
-    
-            /*
-            // Inner Key, Value pairs
-            $.each(currentChar, function (key, val){
-    
-                console.log("" + key + ": " + val);
-    
-                // create Cards for each character
-                
-                charCard.text(val)
-                
-            */
-    
-    
-            
+            $(".card-text.card"+key).text(value.health);            
     
         });
     };
 
-    // };
 
     displayCards();
+
+    
 
 
     // Game Interaction Functions
@@ -115,20 +102,20 @@ $(document).ready(function() {
             // alert("Card Clicked");
     
             // Get ID
-            // var cardID = "#"+$(this).attr("id");
-            alert(cardID);
+            // var playerID = "#"+$(this).attr("id");
+            alert(playerID);
     
             // Get health, attack, and counter values
-            playerName = $(this).attr("name");
-            playerHP = $(this).attr("healthPoints");
-            playerAttack = $(this).attr("attackPower");
-            playerCounter = $(this).attr("counterAttackPower");
+            playerName = $("#"+playerID).attr("name");
+            playerHP = parseInt($("#"+playerID).attr("healthpoints"));
+            playerAttack = parseInt($("#"+playerID).attr("attackpower"));
+            playerCounter = parseInt($("#"+playerID).attr("counterattackpower"));
 
             // Move card to Your Character Section
-            $(cardID).appendTo("#yourCharacter");
+            $("#"+playerID).appendTo("#yourCharacter");
 
             // move remaining cards to Characters Left section
-            $(".card").not(cardID).each(function (index) {
+            $(".card").not("#"+playerID).each(function (index) {
                 $(this).appendTo("#charactersLeft");
             });
 
@@ -158,14 +145,16 @@ $(document).ready(function() {
         alert(defenderID);
 
         // Get health, attack, and counter values
-        enemyName = $(this).attr("name");
-        enemyHP = $(this).attr("healthPoints");
-        enemyAttack = $(this).attr("attackPower");
-        enemyCounter = $(this).attr("counterAttackPower");
+        enemyName = $("#"+defenderID).attr("name");
+        alert(enemyName);
+        enemyHP = parseInt($("#"+defenderID).attr("healthpoints"));
+        alert(enemyHP);
+        // enemyAttack = parseInt($(this).attr("attackPower"));
+        enemyCounter = parseInt($("#"+defenderID).attr("counterattackpower"));
         canPickCard = false;
 
         // Move card to Defender Section
-        $(defenderID).appendTo("#defender");
+        $("#"+defenderID).appendTo("#defender");
         
 
         
@@ -184,7 +173,33 @@ $(document).ready(function() {
 
     // ATTACK button
     function attackButton() {
-            audioElement.play();
+            // audioElement.play();
+            alert("ATTACK");
+            alert("Enemy Current HP: " + enemyHP);
+            // First Player attacks
+            enemyHP -= playerAttack;
+            alert("Enemy New HP: " + enemyHP);
+            $(".card-text."+defenderID).text(String(enemyHP));
+            if (enemyHP <= 0) {
+                // Change Attack key to You Win
+                alert("You Win");
+                // Show Pick a new opponent or restart if done
+            }
+
+            // increate playerAttack by base number
+            playerAttack += baseAttackPower;
+            alert("New Attack Points: " + playerAttack);
+
+            playerHP -= enemyCounter;
+            alert("player HP: " + playerHP);
+
+            if (playerHP <= 0) {
+                // Change Attack key to You Lose
+                alert("You Lose");
+                // Show Restart button
+            }
+
+
     };
 
 
@@ -202,16 +217,16 @@ $(document).ready(function() {
         if (canPickCard) {
             // Is the player selecting the first card?
             if (isFirstCard) {
-                cardID = "#"+$(this).attr("id");
+                playerID = $(this).attr("id");
                 isFirstCard = false;
                 selectPlayer();
             }
 
             // Otherwise select the second card
             else {
-                defenderID = "#"+$(this).attr("id");
+                defenderID = $(this).attr("id");
                 // make sure first card can not be picked again this round
-                if (defenderID !== cardID) {
+                if (defenderID !== playerID) {
                     selectDefender();
                 }
             }
