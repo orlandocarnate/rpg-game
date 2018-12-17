@@ -66,7 +66,8 @@ $(document).ready(function() {
             
             var cardID = "card"+ key;
                 
-            $("#chooseChar").append("<div/>", 
+            // Create Card
+            $("#chooseChar").append($("<div/>", 
                 {
                     "class": "card", 
                     "id": cardID, 
@@ -76,9 +77,57 @@ $(document).ready(function() {
                     "attackpower": value.attack,
                     "counterattackpower": value.counter
                 }
-            ).append("<div class='card-body card" + key + "'>");
+                )
+                .append($("<div/>",
+                    {
+                        "class": 'card-body'
+                    } 
+                )
+                    .append($("<img/>",
+                    {
+                        "class":"card-img-top",
+                        "src": "assets/images/" + value.image
+                    }
+                    ))
+                    .append($("<div/>",
+                    {
+                        "class": "card-title "+ cardID,
+                        text: value.name
+                    }
+                    ))
+                    .append($("<div/>",
+                    {
+                        "class": "card-text " + cardID,
+                        text: value.health
+                    }
+                    ))
+                    
 
-            
+                )
+            )
+                    
+
+                /*
+                .append($("<div/>",
+                    {
+                        "class": 'card-body'
+                    } 
+                    )).append($("<img/>",
+                        {
+                            "class":"card-img-top",
+                            "src": "assets/images/" + value.image
+                        } 
+                    )).append($("<div/>",
+                        {
+                            "class": "card-title "+ cardID
+                        } 
+                    )).append($("<div/>",
+                        {
+                            "class": "card-text " + cardID
+                        }
+                    ))
+                        */
+
             // $("#chooseChar").append("<div class='card' id='card" + key + "' style='width:200px'>");
             // $("#"+cardID).attr("name", value.name);
             // $("#"+cardID).attr("healthpoints", value.health);
@@ -117,7 +166,7 @@ $(document).ready(function() {
     
             // Get ID
             // var playerID = "#"+$(this).attr("id");
-            alert(playerID);
+            console.log("PlayerID: " + playerID);
     
             // Get health, attack, and counter values
             playerName = $("#"+playerID).attr("name");
@@ -156,13 +205,13 @@ $(document).ready(function() {
 
         // Get ID
 
-        alert(defenderID);
+        console.log("DefenderID: "+ defenderID);
 
         // Get health, attack, and counter values
         enemyName = $("#"+defenderID).attr("name");
-        alert(enemyName);
+        console.log("Defender: " + enemyName);
         enemyHP = parseInt($("#"+defenderID).attr("healthpoints"));
-        alert(enemyHP);
+        console.log("Defender HP: " + enemyHP);
         // enemyAttack = parseInt($(this).attr("attackPower"));
         enemyCounter = parseInt($("#"+defenderID).attr("counterattackpower"));
         canPickCard = false;

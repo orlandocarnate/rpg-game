@@ -15,17 +15,8 @@
     </div>
 
     <script>
-        $(".top").append(
-            $('<div>', {'class': 'wrapper1 wrapper2', 'id': 'idwrap'}).append(
-                $('<div>', {'class': 'inner1 inner2'}).append(
-                    $('<span>', {text: 'Some text'})
-                )
-            )
-            .append(
-                $('<div>', {'class': 'inner'}).append(
-                    $('<span>', {text: 'Other text'})
-                )
-            )
+        $(".top").append($('<div>', {'class': 'wrapper1 wrapper2', 'id': 'idwrap'}).append($('<div>', {'class': 'inner1'}).append($('<span>', {text: 'Some text'}) ) )
+            .append($('<div>', {'class': 'inner2'}).append($('<span>', {text: 'Other text'}) ) )
         );
         
     </script>
