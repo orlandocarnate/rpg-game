@@ -2,6 +2,9 @@
 $(document).ready(function() {
 
     // Global Variables
+
+    // Bootstrap MODAL string
+
     // Gets Link for Theme Song
     var audioElement = document.createElement("audio");
     audioElement.setAttribute("src", "assets/sounds/theme.mp3");
@@ -10,23 +13,23 @@ $(document).ready(function() {
     var characters = [
         {
             name: "Harry Potter",
-            healthPoints: 15,
-            attackPower: 5,
-            counterAttackPower: 5,
+            healthPoints: 75,
+            attackPower: 25,
+            counterAttackPower: 25,
             image: "harry2.jpg"
         },
         {
             name: "Hermione Granger",
-            healthPoints: 16,
-            attackPower: 5,
-            counterAttackPower: 5,
+            healthPoints: 75,
+            attackPower: 25,
+            counterAttackPower: 25,
             image: "Hermione2.jpg"
         },
         {
             name: "Ron Weasley",
-            healthPoints: 13,
-            attackPower: 5,
-            counterAttackPower: 5,
+            healthPoints: 75,
+            attackPower: 20,
+            counterAttackPower: 25,
             image: "Ron_Weasley.jpg"
         }
     ];
@@ -47,13 +50,13 @@ $(document).ready(function() {
             console.log(value.counterAttackPower);
     
                 
-            $("#chooseChar").append("<div class='card card" + key + "' style='width:200px'>");
-            $(".card.card"+key).attr("name", value.name);
-            $(".card.card"+key).attr("healthpoints", value.healthPoints);
-            $(".card.card"+key).attr("attackpower", value.attackPower);
-            $(".card.card"+key).attr("counterattackpower", value.counterAttackPower);
+            $("#chooseChar").append("<div class='card' id='card" + key + "' style='width:200px' data-toggle='modal' data-target='#exampleModal'>");
+            $("#card"+key).attr("name", value.name);
+            $("#card"+key).attr("healthpoints", value.healthPoints);
+            $("#card"+key).attr("attackpower", value.attackPower);
+            $("#card"+key).attr("counterattackpower", value.counterAttackPower);
     
-            $(".card.card"+key).append("<div class='card-body card" + key + "'>");
+            $("#card"+key).append("<div class='card-body card" + key + "'>");
     
             $(".card-body.card"+key).append("<img class='card-img-top' src='assets/images/"+value.image+"'>");
             $(".card-body.card"+key).append("<div class='card-title card"+key+"'>");
@@ -80,7 +83,7 @@ $(document).ready(function() {
             
     
         });
-    }
+    };
 
     // };
 
@@ -98,14 +101,25 @@ $(document).ready(function() {
 
     // get info from Cards on click
     $(".card").on("click", function () {
-        
+        // alert("Card Clicked");
+
+        // Get ID
+        cardID = "#"+$(this).attr("id");
+        // alert(cardID);
+
+        // Get health, attack, and counter values
         var cardName = $(this).attr("name");
         var cardHP = $(this).attr("healthPoints");
         var cardAttack = $(this).attr("attackPower");
         var cardCounter = $(this).attr("counterAttackPower");
-        var alertText = cardName + ' has ' + cardHP + ' health, ' 
-            + cardAttack + ' attack, ' + ', and ' + cardCounter + ' counter points.'
-        alert(alertText);
+
+        // create text for Modal pop
+        var modalText = ' health: '+ cardHP + ', attack: ' + cardAttack + ', counter: ' + cardCounter;
+        $(".modal-title").text(cardName);
+        $(".modal-body").text(modalText);
+
+        // Move card to Your Character Section
+        $(cardID).appendTo("#charactersLeft");
     })
 
 });
