@@ -71,7 +71,7 @@ $(document).ready(function() {
                 {
                     "class": "card", 
                     "id": cardID, 
-                    "style": "width:200px",
+                    "style": "width:150px",
                     "name": value.name,
                     "healthpoints": value.health,
                     "attackpower": value.attack,

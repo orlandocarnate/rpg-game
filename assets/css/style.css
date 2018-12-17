@@ -7,4 +7,20 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Spectral', serif;
+    color: #fff;
+}
+
+.card-title, .card-text {
+    font-size: 8pt;
+    padding: 2px;
+    margin-bottom: 2px;
+}
+
+.card-body {
+    padding: 1px;
+    margin: 5px;
+}
+
+.card {
+    margin: 5px;
 }
