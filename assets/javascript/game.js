@@ -20,6 +20,8 @@ $(document).ready(function() {
     var enemyAttack = 0;
     var enemyCounter = 0;
 
+    var attackBtnActive = false;
+
     // Gets Link for Theme Song
     var audioElement = document.createElement("audio");
     audioElement.setAttribute("src", "assets/sounds/theme.mp3");
@@ -91,13 +93,13 @@ $(document).ready(function() {
                     ))
                     .append($("<div/>",
                     {
-                        "class": "card-title "+ cardID,
+                        "class": "card-title text-center "+ cardID,
                         text: value.name
                     }
                     ))
                     .append($("<div/>",
                     {
-                        "class": "card-text " + cardID,
+                        "class": "card-text text-center " + cardID,
                         text: value.health
                     }
                     ))
@@ -147,17 +149,10 @@ $(document).ready(function() {
         });
     };
 
-
+    // run the function
     displayCards();
 
-    
-
-
     // Game Interaction Functions
-
-    
-
-    
 
     // Select Character
     function selectPlayer () {
@@ -177,13 +172,8 @@ $(document).ready(function() {
             // Move card to Your Character Section
             $("#"+playerID).appendTo("#yourCharacter");
 
-            // move remaining cards to Characters Left section
-            $(".card").not("#"+playerID).each(function (index) {
-                $(this).appendTo("#charactersLeft");
-            });
-
             isFirstCard = false;
-
+            $(".main-prompt").text("Choose your opponent");
 
             
     
@@ -201,7 +191,8 @@ $(document).ready(function() {
 
     function selectDefender () {
 
-        // alert("Card Clicked");
+        // change text
+
 
         // Get ID
 
@@ -219,8 +210,13 @@ $(document).ready(function() {
         // Move card to Defender Section
         $("#"+defenderID).appendTo("#defender");
         
+        // turn on attack button
+        attackBtnActive = true;
 
-        
+        // move remaining cards to Characters Left section
+        $(".card").not("#"+playerID+",#"+defenderID).each(function (index) {
+            $(this).appendTo("#charactersLeft");
+        });
 
         // create text for Modal pop
         // var modalText = ' health: '+ cardHP + ', attack: ' + cardAttack + ', counter: ' + cardCounter;
@@ -236,6 +232,8 @@ $(document).ready(function() {
 
     // ATTACK button
     function attackButton() {
+
+        if (attackBtnActive) {
             // audioElement.play();
             console.log("ATTACK");
             console.log("Enemy Current HP: " + enemyHP);
@@ -243,16 +241,23 @@ $(document).ready(function() {
             enemyHP -= playerAttack;
             console.log("Enemy New HP: " + enemyHP);
             $(".card-text."+defenderID).text(enemyHP);
+
             if (enemyHP <= 0) {
                 // Change Attack key to You Win
                 alert("You Win");
-                // Show Pick a new opponent or restart if done
+
+                // check if there are any card elements
+                alert("Cards Left: " + $("#charactersLeft").children('.card').length);
+                // remove current opponent
+                $("#"+defenderID).remove();
+                // set isFirstCard to false and canPickCard to true to pick a new opponent or restart if done
+                isFirstCard = false;
+                canPickCard = true;
             }
 
-            // increase playerAttack by base number
+            // update player stats
             playerAttack += baseAttackPower;
             console.log("New Attack Points: " + playerAttack);
-
             playerHP -= enemyCounter;
             console.log("player HP: " + playerHP);
             $(".card-text."+playerID).text(playerHP);
@@ -260,10 +265,14 @@ $(document).ready(function() {
             if (playerHP <= 0) {
                 // Change Attack key to You Lose
                 alert("You Lose");
+
+                // turn off attack button
+                attackBtnActive = false;
                 // Show Restart button
+                
             }
-
-
+        }
+  
     };
 
 

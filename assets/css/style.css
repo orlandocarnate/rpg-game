@@ -10,17 +10,36 @@ h1, h2, h3, h4, h5, h6 {
     color: #fff;
 }
 
-.card-title, .card-text {
+.card-title {
     font-size: 8pt;
     padding: 2px;
-    margin-bottom: 2px;
+    margin: 0px;
+}
+
+.card-text {
+    font-size: 8pt;
+    padding: 0px;
+    margin-bottom: 0px;
 }
 
 .card-body {
     padding: 1px;
-    margin: 5px;
+    margin: 0px;
+}
+
+
+
+.card-bg {
+    background-color: rgba(255, 255, 255, 0.342);
+    opacity: 1;
+    height: 250px;
+
+    border-radius: 15px;
+    z-index: 0;
 }
 
 .card {
     margin: 5px;
+    z-index: 150;
+    opacity: 1;
 }
