@@ -98,7 +98,7 @@ $(document).ready(function() {
             // Create Card
             $("#chooseChar").append($("<div/>", 
                 {
-                    "class": "card", 
+                    "class": "card p-2", 
                     "id": cardID, 
                     "style": "width:150px",
                     "name": value.name,
@@ -126,7 +126,7 @@ $(document).ready(function() {
                     ))
                     .append($("<div/>",
                     {
-                        "class": "card-text text-center text-success " + cardID,
+                        "class": "card-text text-center " + cardID,
                         text: value.health
                     }
                     ))
@@ -198,6 +198,7 @@ $(document).ready(function() {
 
             // Fade out then move to new location then fade in
             // Move card to Your Character Section
+            $("#"+playerID).addClass("bg-success");
             $("#"+playerID).appendTo("#yourCharacter");
 
             isFirstCard = false;
@@ -237,6 +238,11 @@ $(document).ready(function() {
         // turn on attack button
         attackBtnActive = true;
 
+        // change background to red, rest to gray
+        $("#"+defenderID).addClass("bg-danger");
+        $(".card").not("#"+playerID+",#"+defenderID).addClass("bg-secondary");
+
+
         // move remaining cards to Characters Left section
         $(".card").not("#"+playerID+",#"+defenderID).each(function (index) {
             $(this).appendTo("#charactersLeft");
@@ -250,11 +256,8 @@ $(document).ready(function() {
 
     // RESTART button
     function restartButton() {
-
-        // Fade button then reload page
-        $("#restart").fadeOut(1000, function () {
-            location.reload();
-        });
+        // Reload Page
+        location.reload();
     };
 
     // ATTACK button
@@ -284,7 +287,6 @@ $(document).ready(function() {
                 $("#arena-prompt").text("Choose your next opponent!");
 
                 // if there are any card elements left remove current opponent, otherwise Player Wins the Game
-                // alert("Cards Left: " + $("#charactersLeft").children('.card').length);
                 if ($("#charactersLeft").children('.card').length > 0) {
                     // remove current opponent
                     $("#"+defenderID).remove();
@@ -293,13 +295,15 @@ $(document).ready(function() {
                     canPickCard = true;
                     
                 } else {
-                    // PLAYER WINS
-                    status = 'YOU WON THE GAME!';
+                    // PLAYER WINS GAME
+                    status = 'You Won The Game!';
 
                     $(".main-prompt").text(status);
+                    $("#arena-prompt").text("");
 
                     // PLAYER WINS GAME! DISPLAY MODAL
-                    $(".modal-title").text(status);
+                    $("#modal-title").text(status);
+                    $("#modal-text").text("Congratulations, " + playerName + "!");
                     $("#endgameModal").modal('show');
 
                     // hide the attack button
@@ -325,17 +329,18 @@ $(document).ready(function() {
                 // $(".main-prompt").text("YOU LOST!");
 
                 // hide the attack button
-                $("#attack").fadeOut(1000);
+                $("#attack").hide();
 
                 // Show restart button
-                $("#restart").fadeIn();
+                $("#restart").show();
 
                 // turn off attack button
                 attackBtnActive = false;
                 // Show Restart button
 
-                status = "YOU WERE DEFEATED!"
-                $(".modal-title").text(status);
+                status = "You Were Defeated!";
+                $("#modal-title").text(status);
+                $("#modal-text").text(enemyName + " has defeated " + playerName);
                 // $(".modal-body").text(modalText);
                 $("#endgameModal").modal('show');
                 
