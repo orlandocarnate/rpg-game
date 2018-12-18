@@ -100,7 +100,7 @@ $(document).ready(function() {
                 {
                     "class": "card p-2", 
                     "id": cardID, 
-                    "style": "width:150px",
+                    "style": "width:150px;",
                     "name": value.name,
                     "healthpoints": value.health,
                     "attackpower": value.attack,

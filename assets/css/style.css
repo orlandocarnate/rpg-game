@@ -19,6 +19,13 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 900;
 }
 
+.card-img-top {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    object-position: 0 20%;
+}
+
 .card-title {
     font-size: 8pt;
     padding: 2px;
