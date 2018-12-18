@@ -52,6 +52,12 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Spectral SC', serif;
 }
 
+/* .card:hover {
+border-style: solid;
+border-width: 2px;
+border-color: green;
+} */
+
 #endgameModal {
     color: #000;
     

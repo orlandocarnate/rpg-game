@@ -95,7 +95,7 @@ $(document).ready(function() {
             
             var cardID = "card"+ key;
                 
-            // Create Card
+            // Create Card using APPEND
             $("#chooseChar").append($("<div/>", 
                 {
                     "class": "card p-2", 
@@ -134,28 +134,6 @@ $(document).ready(function() {
 
                 )
             )
-                    
-
-                /*
-                .append($("<div/>",
-                    {
-                        "class": 'card-body'
-                    } 
-                    )).append($("<img/>",
-                        {
-                            "class":"card-img-top",
-                            "src": "assets/images/" + value.image
-                        } 
-                    )).append($("<div/>",
-                        {
-                            "class": "card-title "+ cardID
-                        } 
-                    )).append($("<div/>",
-                        {
-                            "class": "card-text " + cardID
-                        }
-                    ))
-                        */
 
             // $("#chooseChar").append("<div class='card' id='card" + key + "' style='width:200px'>");
             // $("#"+cardID).attr("name", value.name);
