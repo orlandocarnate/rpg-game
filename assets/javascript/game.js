@@ -35,28 +35,28 @@ $(document).ready(function() {
     var characters = [
         {
             name: "Harry Potter",
-            health: 100,
+            health: 120,
             attack: 8,
             counter: 7,
             image: "harry2.jpg"
         },
         {
             name: "Hermione Granger",
-            health: 100,
+            health: 110,
             attack: 7,
             counter: 6,
             image: "Hermione2.jpg"
         },
         {
             name: "Ron Weasley",
-            health: 95,
+            health: 100,
             attack: 6,
             counter: 5,
             image: "Ron_Weasley.jpg"
         },
         {
             name: "Draco Malfoy",
-            health: 80,
+            health: 90,
             attack: 5,
             counter: 4,
             image: "Draco-Malfoy-375-500.jpg"
@@ -70,7 +70,7 @@ $(document).ready(function() {
         },
         {
             name: "Voldemort",
-            health: 200,
+            health: 190,
             attack: 10,
             counter: 9,
             image: "voldemort.jpg"
@@ -246,12 +246,17 @@ $(document).ready(function() {
             console.log("ATTACK");
             console.log("Enemy Current HP: " + enemyHP);
 
-            $("#playerAttackDamage").text("You attacked " + enemyName + " with " + playerAttack + " damage.");
-            $("#enemyAttackDamage").text(enemyName + " attacked you with " + enemyCounter + " damage.");
+            $("#playerAttackDamage").html("You attacked " + enemyName + " with <strong style='color: green'>" + playerAttack + "</strong> damage.");
+            $("#enemyAttackDamage").html(enemyName + " attacked you with <strong style='color: red'>" + enemyCounter + "</strong> damage.");
             
 
-            // First Player attacks
+            // Player Attacks First
             enemyHP -= playerAttack;
+
+            // Player's Attack increases by base attack power
+            playerAttack += baseAttackPower;
+            console.log("New Attack Points: " + playerAttack);
+
             console.log("Enemy New HP: " + enemyHP);
             $(".card-text."+defenderID).text(enemyHP);
 
@@ -295,9 +300,8 @@ $(document).ready(function() {
                 
             }
 
-            // update player stats
-            playerAttack += baseAttackPower;
-            console.log("New Attack Points: " + playerAttack);
+            // Enemy Counters
+
             playerHP -= enemyCounter;
             console.log("player HP: " + playerHP);
             $(".card-text."+playerID).text(playerHP);
