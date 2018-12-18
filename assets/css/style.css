@@ -1,12 +1,12 @@
 body {
     background-image: url("../images/harry-potter-voldemort-fighting.jpg");
     background-size: 100%;
-    font-family: 'Spectral SC', serif;
+    font-family: 'Spectral', serif;
 
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Spectral', serif;
+    /* font-family: 'Spectral', serif; */
     color: #fff;
     text-shadow: 2px 2px #0000004b;
 }
@@ -48,7 +48,8 @@ h1, h2, h3, h4, h5, h6 {
 .card {
     margin: 5px;
     z-index: 150;
-    opacity: 1;
+    /* opacity: 1; */
+    font-family: 'Spectral SC', serif;
 }
 
 #endgameModal {

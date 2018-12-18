@@ -35,45 +35,50 @@
 
         </div>
 
-        <div id="arena" class="row arena">
-            <div class="col-md-12 text-center text-white">
-                Battle Arena
-            </div>
-        </div>
+        <div class="row d-flex justify-content-around text-white mt-3">
 
-        <div class="row">
-
-            <div class="col-md-5 text-center d-flex justify-content-center text-white">
+            <div class="col-md-3 text-center d-flex justify-content-center">
                 Attacker
             </div>
 
-            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-
+            <div class="col-md-4 text-center d-flex justify-content-center align-items-center">
+                Battle Arena
             </div>
 
-            <div class="col-md-5 text-center d-flex justify-content-center text-white">
+            <div class="col-md-3 text-center d-flex justify-content-center">
                 Defender
             </div>
 
         </div>
 
-        <div class="row card-bg">
-            <div id="yourCharacter" class="col-md-5 text-center d-flex justify-content-center">
+        <div class="row d-flex justify-content-around">
+            <div id="yourCharacter" class="col-md-3 text-center d-flex justify-content-center card-bg">
 
             </div>
 
-            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                <button id="attack" class="btn btn-success attack-button p3">Attack</button>
-                <button id="restart" class="btn btn-primary attack-button p3">Restart Game</button>
+            <div class="col-md-4 text-center card-bg">
+                <div class="d-flex flex-column align-content-center mb-3 px-0">
+                    <div class="my-4 p-2">
+                        <button id="attack" class="btn btn-success attack-button p-3">Attack</button>
+                        <button id="restart" class="btn btn-primary attack-button p-3">Restart Game</button>
+                        <h4 id="arena-prompt"></h4>
+                    </div>
+
+                    <div class="my-4 p-2">
+                        <div id="playerAttackDamage" class="text-white"></div>
+                        <div id="enemyAttackDamage" class="text-white"></div>
+                    </div>
+                </div>
+
             </div>
-            <div id="defender" class="col-md-5 text-center d-flex justify-content-center">
+            <div id="defender" class="col-md-3 text-center d-flex justify-content-center card-bg">
  
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-md-12 text-center d-flex justify-content-center text-white">
-                Characters Left To Battle
+                Opponents Left To Battle
             </div>
             
         </div>

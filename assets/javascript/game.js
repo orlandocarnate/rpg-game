@@ -207,8 +207,10 @@ $(document).ready(function() {
 
     function selectDefender () {
 
-        // change text
-
+        // clear Battle Arena text
+        $("#playerAttackDamage").text("");
+        $("#enemyAttackDamage").text("");
+        $("#arena-prompt").text("");
 
         // Get ID
 
@@ -249,18 +251,10 @@ $(document).ready(function() {
     // RESTART button
     function restartButton() {
 
-
-
-        // CLEAR all children elements from player, opponent, and chars left elements
-
-        $("#yourCharacter, #defender, #charactersLeft").remove();
-    
-        // hide the attack & reset buttons
-        $("#restart").fadeOut();
-
-        // Reload the cards
-        displayCards();
-
+        // Fade button then reload page
+        $("#restart").fadeOut(1000, function () {
+            location.reload();
+        });
     };
 
     // ATTACK button
@@ -271,6 +265,10 @@ $(document).ready(function() {
             console.log("ATTACK");
             console.log("Enemy Current HP: " + enemyHP);
 
+            $("#playerAttackDamage").text("You attacked " + enemyName + " with " + playerAttack + " damage.");
+            $("#enemyAttackDamage").text(enemyName + " attacked you with " + enemyCounter + " damage.");
+            
+
             // First Player attacks
             enemyHP -= playerAttack;
             console.log("Enemy New HP: " + enemyHP);
@@ -278,11 +276,12 @@ $(document).ready(function() {
 
             // Check if opponent loses and if there are any cards left
             if (enemyHP <= 0) {
-                // Change Attack key to You Win
-                $(".main-prompt").text("YOU WIN!");
-
                 // hide the attack button
-                $("#attack").fadeOut(1000);
+                $("#attack").hide();
+
+                // Change Attack key to You Win
+                $(".main-prompt").text("You Won This Round!");
+                $("#arena-prompt").text("Choose your next opponent!");
 
                 // if there are any card elements left remove current opponent, otherwise Player Wins the Game
                 // alert("Cards Left: " + $("#charactersLeft").children('.card').length);
@@ -294,12 +293,20 @@ $(document).ready(function() {
                     canPickCard = true;
                     
                 } else {
+                    // PLAYER WINS
                     status = 'YOU WON THE GAME!';
+
+                    $(".main-prompt").text(status);
+
                     // PLAYER WINS GAME! DISPLAY MODAL
-                    // var modalText = ' health: '+ cardHP + ', attack: ' + cardAttack + ', counter: ' + cardCounter;
                     $(".modal-title").text(status);
-                    // $(".modal-body").text(modalText);
                     $("#endgameModal").modal('show');
+
+                    // hide the attack button
+                    $("#attack").hide();
+
+                    // Show restart button
+                    $("#restart").fadeIn();
 
                 }
 
@@ -319,6 +326,8 @@ $(document).ready(function() {
 
                 // hide the attack button
                 $("#attack").fadeOut(1000);
+
+                // Show restart button
                 $("#restart").fadeIn();
 
                 // turn off attack button
@@ -335,24 +344,14 @@ $(document).ready(function() {
   
     };
 
-
-    // jQuery Event Listeners
+    //----------- jQuery Event Listeners
 
     $("#attack").on("click", function() {
         attackButton();
     });
 
     $("#restart").on("click", function() {
-        location.reload();
-        /*
         restartButton();
-        // reset variables and booleans
-        canPickCard = true;
-        isFirstCard = true;
-        baseAttackPower = 6;
-        attackBtnActive = false;
-        alert("Pick Card: " + canPickCard + ", First Card: " + isFirstCard);
-        */
     });
 
     // Click Card event
