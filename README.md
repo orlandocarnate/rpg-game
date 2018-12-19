@@ -74,7 +74,8 @@ My son loves the world of Harry Potter so I decided to do an RPG game based on t
 
 * For loop works with objects in an array **DO NOT WORK IN jQUERY** 
 
-This doesn't work:
+* This doesn't work:
+
     ```
     //For loop looks through each object and displays the values
         for(var i = 0; i < characters; i++) {
@@ -85,7 +86,8 @@ This doesn't work:
         }
     ```
 
-Use the `.each()`
+* Use the `.each()` to loop through an object array.
+
     ```
     // Outer key, value pairs
     $.each(characters, function(i, currentChar) {
@@ -96,12 +98,13 @@ Use the `.each()`
             });
 
     });
-```
+    ```
 
 * Movie sound clips from http://www.moviesoundclips.net
 
 * To move an element try 
-    ``jQuery("#NodesToMove").detach().appendTo('#DestinationContainerNode')
+    ```
+    jQuery("#NodesToMove").detach().appendTo('#DestinationContainerNode')
     ```
 
 * to get index of an element within another element try:
@@ -127,4 +130,7 @@ Use the `.each()`
         });
     ```
 
-* **FINAL NOTE ON RESTART BUTTON** There were event delegation problems that was taking too long to fix so I did a simple reloading of the page instead.
+* **FINAL NOTE ON RESTART BUTTON** 
+    * Will avoid using location.reload as the easy way to restart the game, will try to reset all the variables.
+    * There were **event delegation** problems using `.remove()` and `.append()` the cards with the same IDs. 
+    * I used `.hide()` and `.show()` and the problem went away. Took a long time to figure out.

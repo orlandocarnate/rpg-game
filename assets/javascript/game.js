@@ -6,19 +6,16 @@ $(document).ready(function() {
     var canPickCard = true;
     var isFirstCard = true;
 
-    var baseAttackPower = 6;
+    var baseAttackPower = 5;
 
     var playerName;
     var playerHP = 0;
     var playerAttack = 0;
-    var playerCounter = 0;
-
     var playerID;
     var defenderID;
 
     var enemyName = "";
     var enemyHP = 0;
-    var enemyAttack = 0;
     var enemyCounter = 0;
 
     var attackBtnActive = false;
@@ -59,8 +56,8 @@ $(document).ready(function() {
         },
         {
             name: "Draco Malfoy",
-            health: 90,
-            attack: 5,
+            health: 80,
+            attack: 4,
             counter: 4,
             image: "Draco-Malfoy-375-500.jpg"
         },
@@ -73,9 +70,9 @@ $(document).ready(function() {
         },
         {
             name: "Voldemort",
-            health: 190,
-            attack: 10,
-            counter: 9,
+            health: 200,
+            attack: 11,
+            counter: 10,
             image: "voldemort.jpg"
         }
         
@@ -86,13 +83,11 @@ $(document).ready(function() {
 
     enemyCardCount = totalCardCount - 1;
     console.log("Starting Enemy Card Count: " + enemyCardCount);
+
     // Display Character Cards
         // render cards with style tags using jQuery
-    // Reguar JavaScript For Loop functions will not work with jQuery.
-    // use $.each() for loops.
-    // Outer key, value pairs
-
     function displayCards() {
+        // use $.each() for looping through object array
         $.each(characters, function(key, value) {
 
             console.log(value.name);
@@ -397,7 +392,7 @@ $(document).ready(function() {
     });
 
     // Click Card event
-    $( ".card").on("click", function () {
+    $(".card").on("click", function () {
 
         // Can the player pick a card?
         if (canPickCard) {
