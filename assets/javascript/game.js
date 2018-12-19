@@ -6,7 +6,7 @@ $(document).ready(function() {
     var canPickCard = true;
     var isFirstCard = true;
 
-    var baseAttackPower = 5;
+    var baseAttackPower = 0;
 
     var playerName;
     var playerHP = 0;
@@ -37,42 +37,42 @@ $(document).ready(function() {
             name: "Harry Potter",
             health: 120,
             attack: 8,
-            counter: 7,
+            counter: 15,
             image: "harry2.jpg"
         },
         {
             name: "Hermione Granger",
             health: 110,
             attack: 7,
-            counter: 6,
+            counter: 12,
             image: "Hermione2.jpg"
         },
         {
             name: "Ron Weasley",
             health: 100,
             attack: 6,
-            counter: 5,
+            counter: 10,
             image: "Ron_Weasley.jpg"
         },
         {
             name: "Draco Malfoy",
             health: 80,
             attack: 4,
-            counter: 4,
+            counter: 8,
             image: "Draco-Malfoy-375-500.jpg"
         },
         {
             name: "Severus Snape",
             health: 150,
             attack: 9,
-            counter: 8,
+            counter: 20,
             image: "Severus_Snape.jpg"
         },
         {
             name: "Voldemort",
-            health: 200,
+            health: 180,
             attack: 11,
-            counter: 10,
+            counter: 25,
             image: "voldemort.jpg"
         }
         
@@ -174,6 +174,7 @@ $(document).ready(function() {
             playerName = $("#"+playerID).attr("name");
             playerHP = parseInt($("#"+playerID).attr("healthpoints"));
             playerAttack = parseInt($("#"+playerID).attr("attackpower"));
+            baseAttackPower = playerAttack;
             playerCounter = parseInt($("#"+playerID).attr("counterattackpower"));
 
             // Fade out then move to new location then fade in
@@ -258,7 +259,7 @@ $(document).ready(function() {
         canPickCard = true;
         isFirstCard = true;
     
-        baseAttackPower = 6;
+        baseAttackPower = 0;
     
         playerName = "";
         playerHP = 0;
@@ -306,27 +307,30 @@ $(document).ready(function() {
             console.log("Enemy New HP: " + enemyHP);
             $(".card-text."+defenderID).text(enemyHP);
 
-            // Check if opponent loses and if there are any cards left
-            if (enemyHP <= 0) {
-                // hide the attack button
-                $("#attack").hide();
-
-                // reduce enemy card count
+            // Determine if Enemy can Counter Attack
+            if (enemyHP > 0) {
+                // lower Player HP
+                playerHP -= enemyCounter;
+            } else {
+                // Enemy Loses- reduce enemy card count
                 enemyCardCount--;
                 console.log("Current Enemy Card Count: " + enemyCardCount);
 
-                // Change Attack key to You Win
-                $(".main-prompt").text("You Won This Round!");
-                $("#arena-prompt").text("Choose your next opponent!");
+                // hide the attack button
+                $("#attack").hide();
 
-                // if there are any card elements left HIDE current opponent, otherwise Player Wins the Game
                 if (enemyCardCount > 0) {
-                    // remove current opponent
-                    $("#"+defenderID).hide();
-                    // set isFirstCard to false and canPickCard to true to pick a new opponent or restart if done
-                    isFirstCard = false;
-                    canPickCard = true;
-                    
+                   // Change Attack key to You Win
+                    $(".main-prompt").text("You Won This Round!");
+                    $("#arena-prompt").text("Choose your next opponent!");
+
+                   // remove current opponent
+                   $("#"+defenderID).hide();
+                   // set isFirstCard to false and canPickCard to true to pick a new opponent or restart if done
+                   isFirstCard = false;
+                   canPickCard = true;
+
+
                 } else {
                     // PLAYER WINS GAME
                     status = 'You Won The Game!';
@@ -343,22 +347,18 @@ $(document).ready(function() {
                     $("#attack").hide();
 
                     // Show restart button
-                    $("#restart").fadeIn();
-
+                    $("#restart").show();
                 }
-
                 
+
             }
-
-            // Enemy Counters
-
-            playerHP -= enemyCounter;
+            
             console.log("player HP: " + playerHP);
             $(".card-text."+playerID).text(playerHP);
 
             if (playerHP <= 0) {
                 // Change Attack key to You Lose
-                // $(".main-prompt").text("YOU LOST!");
+                $(".main-prompt").text("YOU LOST!");
 
                 // hide the attack button
                 $("#attack").hide();
