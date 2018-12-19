@@ -16,12 +16,15 @@ $(document).ready(function() {
     var playerID;
     var defenderID;
 
-    var enemyName = 0;
+    var enemyName = "";
     var enemyHP = 0;
     var enemyAttack = 0;
     var enemyCounter = 0;
 
     var attackBtnActive = false;
+
+    var totalCardCount; // used for moving all cards back to choose area
+    var enemyCardCount; // used to determine how many cards are left.
 
     // hide the attack & reset buttons
     $("#attack, #restart").hide();
@@ -78,6 +81,11 @@ $(document).ready(function() {
         
     ];
 
+    totalCardCount = characters.length;
+    console.log("Total Cards: " + totalCardCount);
+
+    enemyCardCount = totalCardCount - 1;
+    console.log("Starting Enemy Card Count: " + enemyCardCount);
     // Display Character Cards
         // render cards with style tags using jQuery
     // Reguar JavaScript For Loop functions will not work with jQuery.
@@ -86,8 +94,7 @@ $(document).ready(function() {
 
     function displayCards() {
         $.each(characters, function(key, value) {
-            // var currentChar = value;
-            console.log(key);
+
             console.log(value.name);
             console.log(value.health);
             console.log(value.attack);
@@ -198,8 +205,10 @@ $(document).ready(function() {
         // Get health, attack, and counter values
         enemyName = $("#"+defenderID).attr("name");
         console.log("Defender: " + enemyName);
+
         enemyHP = parseInt($("#"+defenderID).attr("healthpoints"));
         console.log("Defender HP: " + enemyHP);
+
         // enemyAttack = parseInt($(this).attr("attackPower"));
         enemyCounter = parseInt($("#"+defenderID).attr("counterattackpower"));
         canPickCard = false;
@@ -235,7 +244,49 @@ $(document).ready(function() {
     // RESTART button
     function restartButton() {
         // Reload Page
-        location.reload();
+        // location.reload();
+
+        // turn on cards and send back to choose section
+        $.each(characters, function(key, value)  {
+            var localCardID = "card" + key;
+            $("#"+localCardID).show().removeClass("bg-secondary bg-danger bg-success").appendTo("#chooseChar");
+
+
+            // $(localCardID).attr("#attackpower", value.attack);
+            $(".card-text."+localCardID).text(value.health);
+            // $(localCardID).appendTo("#chooseChar");
+
+        });
+
+        // reset variables
+        status = "";
+        canPickCard = true;
+        isFirstCard = true;
+    
+        baseAttackPower = 6;
+    
+        playerName = "";
+        playerHP = 0;
+        playerAttack = 0;
+        playerCounter = 0;
+    
+        playerID;
+        defenderID;
+    
+        enemyName = "";
+        enemyHP = 0;
+        enemyAttack = 0;
+        enemyCounter = 0;
+
+        enemyCardCount = totalCardCount - 1;
+        
+        $("#restart").hide();
+
+        $(".main-prompt").text("Choose Your Character");
+        $("#playerAttackDamage").html("");
+        $("#enemyAttackDamage").html("");
+
+        attackBtnActive = false;
     };
 
     // ATTACK button
@@ -265,14 +316,18 @@ $(document).ready(function() {
                 // hide the attack button
                 $("#attack").hide();
 
+                // reduce enemy card count
+                enemyCardCount--;
+                console.log("Current Enemy Card Count: " + enemyCardCount);
+
                 // Change Attack key to You Win
                 $(".main-prompt").text("You Won This Round!");
                 $("#arena-prompt").text("Choose your next opponent!");
 
-                // if there are any card elements left remove current opponent, otherwise Player Wins the Game
-                if ($("#charactersLeft").children('.card').length > 0) {
+                // if there are any card elements left HIDE current opponent, otherwise Player Wins the Game
+                if (enemyCardCount > 0) {
                     // remove current opponent
-                    $("#"+defenderID).remove();
+                    $("#"+defenderID).hide();
                     // set isFirstCard to false and canPickCard to true to pick a new opponent or restart if done
                     isFirstCard = false;
                     canPickCard = true;
