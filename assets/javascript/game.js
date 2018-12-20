@@ -25,13 +25,15 @@ $(document).ready(function () {
     attackBtn.hide();
     restartBtn.hide();
 
+    var soundList = [
+        "Expelliarmus.mp3", "Immobilus.mp3", "Obliviate.mp3", "Stupefy.mp3"
+    ];
 
-    // Gets Link for Theme Song
-    var audioElement = document.createElement("audio");
-    audioElement.setAttribute("src", "http://soundfxcenter.com/movies/harry-potter/8d82b5_Harry_Potter_Expelliarmus_Sound_Effect.mp3");
-
+    // create Audio elements
+    var soundfx = document.createElement("audio");
     var audioTheme = document.createElement("audio");
-    audioTheme.setAttribute("src", "http://soundfxcenter.com/movies/harry-potter/8d82b5_Harry_Potter_Intro_Sound_Effect.mp3");
+    audioTheme.setAttribute("src", "assets/sounds/theme.mp3");
+    audioTheme.volume = .1;
 
     // character objects
     var characters = [
@@ -251,7 +253,7 @@ $(document).ready(function () {
         attack: function() {
 
             if (attackBtnActive) {
-                audioElement.play();
+                
                 console.log("ATTACK");
                 console.log("Enemy Current HP: ", enemyHP);
     
@@ -272,7 +274,9 @@ $(document).ready(function () {
                 if (enemyHP > 0) {
                     // lower Player HP
                     playerHP -= enemyCounter;
+                    this.randomFX();
                 } else {
+                    this.randomFX();
                     // Enemy Loses- reduce enemy card count
                     enemyCardCount--;
                     console.log("Current Enemy Card Count: " + enemyCardCount);
@@ -294,6 +298,8 @@ $(document).ready(function () {
                     } else {
                         // PLAYER WINS GAME
                         status = 'You Won The Game!';
+                        soundfx.setAttribute("src", "assets/sounds/Expecto_Patronum.mp3");
+                        soundfx.play();
     
                         $(".main-prompt").text(status);
                         $("#arena-prompt").text("");
@@ -317,6 +323,8 @@ $(document).ready(function () {
                 if (playerHP <= 0) {
                     // Change Attack key to You Lose
                     $(".main-prompt").text("YOU LOST!");
+                    soundfx.setAttribute("src", "assets/sounds/Avada_Kedavra.mp3");
+                    soundfx.play();
     
                     // hide the attack button
                     $("#attack").hide();
@@ -338,6 +346,14 @@ $(document).ready(function () {
             }
     
         },
+
+        randomFX: function() {
+            randomIndex = Math.floor(Math.random() * soundList.length);
+            var fxSource = "assets/sounds/" + soundList[randomIndex];
+            console.log("SoundFX path: ", fxSource);
+            soundfx.setAttribute("src", fxSource)
+            soundfx.play();
+        }
     }
 
     // display the cards
