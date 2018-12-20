@@ -26,7 +26,7 @@ $(document).ready(function () {
     restartBtn.hide();
 
     var soundList = [
-        "Expelliarmus.mp3", "Immobilus.mp3", "Obliviate.mp3", "Stupefy.mp3"
+        "spell1.mp3", "spell2.mp3", "spell3.mp3", "spell4.mp3"
     ];
 
     // create Audio elements
@@ -34,50 +34,58 @@ $(document).ready(function () {
     var audioTheme = document.createElement("audio");
     audioTheme.setAttribute("src", "assets/sounds/theme.mp3");
     audioTheme.volume = .1;
+    var attackFX = document.createElement("audio");
+    attackFX.setAttribute("src", "assets/sounds/Swish_Sound_Effect.mp3");
 
     // character objects
     var characters = [
         {
             name: "Harry Potter",
-            health: 120,
-            attack: 8,
+            health: 125,
+            attack: 9,
             counter: 15,
-            image: "harry2.jpg"
+            image: "harry2.jpg",
+            signatureSpell: "Expecto_Patronum"
         },
         {
             name: "Hermione Granger",
-            health: 110,
-            attack: 7,
+            health: 120,
+            attack: 8,
             counter: 12,
-            image: "Hermione2.jpg"
+            image: "Hermione3.jpg",
+            signatureSpell: "Obliviate"
         },
         {
             name: "Ron Weasley",
-            health: 100,
-            attack: 6,
+            health: 115,
+            attack: 7,
             counter: 10,
-            image: "Ron_Weasley.jpg"
+            image: "Ron_Weasley2.jpg",
+            signatureSpell: "Ron_Expulso"
         },
         {
             name: "Draco Malfoy",
-            health: 80,
-            attack: 4,
-            counter: 8,
-            image: "Draco-Malfoy-375-500.jpg"
+            health: 90,
+            attack: 6,
+            counter: 7,
+            image: "Draco-Malfoy-375-500.jpg",
+            signatureSpell: "Malfoy_Everte_Statum"
         },
         {
             name: "Severus Snape",
             health: 150,
-            attack: 9,
+            attack: 10,
             counter: 20,
-            image: "Severus_Snape.jpg"
+            image: "Severus_Snape.jpg",
+            signatureSpell: "Avada_Kedavra2"
         },
         {
             name: "Voldemort",
             health: 180,
             attack: 11,
             counter: 25,
-            image: "voldemort.jpg"
+            image: "voldemort.jpg",
+            signatureSpell: "Avada_Kedavra"
         }
 
     ];
@@ -106,7 +114,7 @@ $(document).ready(function () {
     
                 // Create Card using APPEND
                 
-                var chosenChar = $("<div/>",
+                var charCard = $("<div/>",
                 {
                     "class": "card p-2",
                     "id": cardID,
@@ -114,7 +122,8 @@ $(document).ready(function () {
                     "name": value.name,
                     "healthpoints": value.health,
                     "attackpower": value.attack,
-                    "counterattackpower": value.counter
+                    "counterattackpower": value.counter,
+                    "sigSpell": value.signatureSpell,
                 }
                 )
                 .append($("<div/>",
@@ -140,7 +149,7 @@ $(document).ready(function () {
                     text: value.health
                 }
                 )))
-                $("#chooseChar").append(chosenChar);
+                $("#chooseChar").append(charCard);
             });
         },
 
@@ -156,6 +165,7 @@ $(document).ready(function () {
             playerAttack = parseInt($("#" + playerID).attr("attackpower"));
             baseAttackPower = playerAttack;
             playerCounter = parseInt($("#" + playerID).attr("counterattackpower"));
+            playerSpell =  $("#" + playerID).attr("sigSpell") + ".mp3";
     
             // Move card to Your Character Section
             $("#" + playerID).addClass("bg-success");
@@ -187,6 +197,8 @@ $(document).ready(function () {
             console.log("Defender HP: " + enemyHP);
     
             enemyCounter = parseInt($("#" + defenderID).attr("counterattackpower"));
+
+            enemySpell = $("#" + defenderID).attr("sigSpell") + ".mp3";
 
             // player should not be able to pick another card while battle is in play
             canPickCard = false;
@@ -253,7 +265,8 @@ $(document).ready(function () {
         attack: function() {
 
             if (attackBtnActive) {
-                
+                // play attack sound effect
+                this.randomFX();
                 console.log("ATTACK");
                 console.log("Enemy Current HP: ", enemyHP);
     
@@ -274,9 +287,9 @@ $(document).ready(function () {
                 if (enemyHP > 0) {
                     // lower Player HP
                     playerHP -= enemyCounter;
-                    this.randomFX();
+                    // this.randomFX();
                 } else {
-                    this.randomFX();
+                    // this.randomFX();
                     // Enemy Loses- reduce enemy card count
                     enemyCardCount--;
                     console.log("Current Enemy Card Count: " + enemyCardCount);
@@ -298,7 +311,8 @@ $(document).ready(function () {
                     } else {
                         // PLAYER WINS GAME
                         status = 'You Won The Game!';
-                        soundfx.setAttribute("src", "assets/sounds/Expecto_Patronum.mp3");
+                        soundfx.setAttribute("src", "assets/sounds/" + playerSpell);
+                        attackFX.pause();
                         soundfx.play();
     
                         $(".main-prompt").text(status);
@@ -323,7 +337,8 @@ $(document).ready(function () {
                 if (playerHP <= 0) {
                     // Change Attack key to You Lose
                     $(".main-prompt").text("YOU LOST!");
-                    soundfx.setAttribute("src", "assets/sounds/Avada_Kedavra.mp3");
+                    attackFX.pause();
+                    soundfx.setAttribute("src", "assets/sounds/" + enemySpell);
                     soundfx.play();
     
                     // hide the attack button
@@ -351,8 +366,8 @@ $(document).ready(function () {
             randomIndex = Math.floor(Math.random() * soundList.length);
             var fxSource = "assets/sounds/" + soundList[randomIndex];
             console.log("SoundFX path: ", fxSource);
-            soundfx.setAttribute("src", fxSource)
-            soundfx.play();
+            attackFX.setAttribute("src", fxSource)
+            attackFX.play();
         }
     }
 
