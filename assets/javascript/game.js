@@ -68,7 +68,7 @@ $(document).ready(function () {
             health: 90,
             attack: 6,
             counter: 7,
-            image: "Draco-Malfoy-375-500.jpg",
+            image: "Draco.jpg",
             signatureSpell: "Malfoy_Everte_Statum"
         },
         {
