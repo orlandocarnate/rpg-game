@@ -70,7 +70,7 @@ My son loves the world of Harry Potter so I decided to do an RPG game based on t
     ```
     if ($("#charactersLeft").children('.card').length > 0) {
     ```
-
+* I ended not using the children length function. I did a count card variable instead. If the cards that are left is equal to zero then player wins.
 
 * For loop works with objects in an array **DO NOT WORK IN jQUERY** 
 
